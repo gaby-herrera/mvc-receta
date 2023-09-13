@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<table id="tablita" class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Ingredientes</th>
+            <th scope="col">Instrucciones </th>
+            <th scope="col">TiempoDeCoccion </th>
+        </tr>
+    </thead>
+    <tbody>
+        <!--DATA-->
+
+        
+    </tbody>
+</table>
+
+@section scripts {
+    <script>
+
+        function MostrarData(){
+
+            fetch("Home/Listar")
+                .then(res => {
+
+                    if(!res.ok){
+                        alert("Algo fallo")
+                    }
+
+                    return res.json()
+                })
+                .then(data => {
+
+                    $("#tablita tbody").html("")
+
+                    console.log(data)
+                    data.forEach( reseta => {
+                        $("#tablita tbody").append(`
+                            <tr>
+                                <th scope="row">1</th>
+                                <td> ${reseta.nombre} </td>
+                                <td> ${reseta.ingredientes}</td>
+                                <td> ${reseta.instrucciones} </td>
+                                <td> ${reseta.tiempoDeCoccion} </td>
+                            </tr>
+                        `)
+                    })
+
+                
+                })
+
+        }
+        MostrarData()
+    </script>
+}
